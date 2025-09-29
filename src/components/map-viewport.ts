@@ -1,4 +1,4 @@
-import { html, LitElement, type TemplateResult } from "lit";
+import { html, LitElement, type PropertyValues, type TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 
@@ -15,6 +15,11 @@ export class MapViewport extends LitElement {
     return html`
     <canvas id="canvas" height="${this.height}" width="${this.width}" style="background: lime;"></canvas>
     `
+  }
+
+  protected updated(_changedProperties: PropertyValues): void {
+    console.log("Viewport updated:", _changedProperties);
+    
   }
 }
 

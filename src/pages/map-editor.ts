@@ -1,16 +1,46 @@
-import { html, LitElement, type TemplateResult } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { css, html, LitElement, type CSSResultGroup, type PropertyValues, type TemplateResult } from "lit";
+import { customElement, state } from "lit/decorators.js";
 
 import "../components/map-viewport";
 
 @customElement('map-editor')
 export class MapEditor extends LitElement {
   
-  @property({type: Number})
+  @state()
   vpHeight = 100;
 
-  @property({type: Number})
+  @state()
   vpWidth = 100;
+
+  static styles: CSSResultGroup = css`
+    :host {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      background-color: red;
+    }
+  `;
+
+  private _handleResize = (ev: Event) => {
+    console.log("Resize Event:", ev);
+    this.vpHeight = this.clientHeight;
+    this.vpWidth = this.clientWidth;
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    window.addEventListener('resize', this._handleResize);
+  }
+
+  disconnectedCallback(): void {
+    window.removeEventListener('resize', this._handleResize);
+    super.disconnectedCallback();
+  }
+
+  protected firstUpdated(_changedProperties: PropertyValues): void {
+    this.vpHeight = this.clientHeight;
+    this.vpWidth = this.clientWidth;
+  }
 
   protected render(): TemplateResult {
     return html`
@@ -19,12 +49,6 @@ export class MapEditor extends LitElement {
         height=${this.vpHeight}
       >
       </map-viewport>
-      <br>
-      <label for="height">Height</label>
-      <input type="text" id="height" value=${this.vpHeight} @change=${(ev: InputEvent) => {this.vpHeight = parseInt(ev.data ?? '100'); console.log('height changed', ev, this.vpHeight);}}>
-      <br>
-      <label for="width">Width</label>
-      <input type="text" id="width" value=${this.vpWidth} @change=${(ev: InputEvent) => {this.vpWidth = parseInt(ev.data ?? '100'); console.log('width changed', ev, this.vpWidth);}}>
     `
   }
 }
