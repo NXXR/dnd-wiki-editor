@@ -1,0 +1,21 @@
+{
+  "name": "dnd-wiki-editor",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "app": "tauri dev"
+  },
+  "dependencies": {
+    "@vaadin/router": "2.0.0",
+    "lit": "3.3.1"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "2.8.4",
+    "typescript": "5.9.2",
+    "vite": "7.1.7"
+  }
+}
