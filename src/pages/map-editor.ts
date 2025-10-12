@@ -1,4 +1,4 @@
-import { css, html, LitElement, type CSSResultGroup, type PropertyValues, type TemplateResult } from "lit";
+import { css, html, LitElement, type CSSResultGroup, type TemplateResult } from "lit";
 import { customElement, state } from "lit/decorators.js";
 
 import "../components/map-viewport";
@@ -7,24 +7,30 @@ import "../components/map-viewport";
 export class MapEditor extends LitElement {
   
   @state()
-  vpHeight = 100;
+  _width: number = window.innerWidth;
 
   @state()
-  vpWidth = 100;
+  _height: number = window.innerHeight;
+
 
   static styles: CSSResultGroup = css`
     :host {
-      display: block;
-      width: 100vw;
-      height: 100vh;
-      background-color: red;
+      display: grid;
+      justify-items: stretch;
+      align-items: stretch;
+      grid-template-columns: 10% auto 10%;
+      min-height: 100vh;
+      min-width: 100vw;
+    }
+
+    map-viewport {
+      grid-column: 1 / span 3;
     }
   `;
 
-  private _handleResize = (ev: Event) => {
-    console.log("Resize Event:", ev);
-    this.vpHeight = this.clientHeight;
-    this.vpWidth = this.clientWidth;
+  private _handleResize = (_ev: Event) => {
+    this._width = window.innerWidth;
+    this._height = window.innerHeight;
   }
 
   connectedCallback(): void {
@@ -37,16 +43,13 @@ export class MapEditor extends LitElement {
     super.disconnectedCallback();
   }
 
-  protected firstUpdated(_changedProperties: PropertyValues): void {
-    this.vpHeight = this.clientHeight;
-    this.vpWidth = this.clientWidth;
-  }
-
   protected render(): TemplateResult {
     return html`
       <map-viewport
-        width=${this.vpWidth}
-        height=${this.vpHeight}
+        width="${this._width}"
+        height="${this._height}"
+        initialViewportX="100"
+        initialViewportY="100"
       >
       </map-viewport>
     `

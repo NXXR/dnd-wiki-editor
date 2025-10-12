@@ -8,6 +8,7 @@ export class LandingPage extends LitElement {
   protected render(): TemplateResult {
     return html`
     <h1>Hello World!</h1>
+    <a href="/editor"><h2>Editor</h2></a>
     `;
   }
 }

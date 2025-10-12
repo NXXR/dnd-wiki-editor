@@ -12,6 +12,7 @@ html {
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
+  height: 100vh;
 }
 
 /* Remove default margin in favour of better control in authored CSS */
@@ -30,6 +31,8 @@ ol[role='list'] {
 body {
   min-height: 100vh;
   min-width: 100vw;
+  padding: 0;
+  margin: 0;
   line-height: 1.5;
 }
 
@@ -68,7 +71,7 @@ textarea:not([rows]) {
 /* Anything that has been anchored to should have extra scroll margin */
 /* TODO: Adjust for nav */
 :target {
-  scroll-margin-block: 5ex;
+  scroll-margin-block: 0;
 }
 
 /* Theme */
@@ -85,9 +88,4 @@ textarea:not([rows]) {
   /* Base Settings */
   background-color: var(--color-surface);
   color: var(--color-text);
-}
-
-body {
-  margin: 0;
-  display: inline-block;
 }
