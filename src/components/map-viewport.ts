@@ -5,37 +5,39 @@ import { customElement, property, query, state } from "lit/decorators.js";
 @customElement('map-viewport')
 export class MapViewport extends LitElement {
 
+  // Properties to  get size from outside/parent
   @property({type: Number})
   width = 0;
-
   @property({type: Number})
   height = 0;
 
+  // Properties to set initial viewport position (px-coords) and zoom level from outside/parent
   @property({type: Number})
-  initialViewportX = 0;
-
+  initialPOIX = 0;
   @property({type: Number})
-  initialViewportY = 0;
-
+  initialPOIY = 0;
   @property({type: Number})
   initialViewportScale = 1;
 
+  // Internal viewport state to handle zooming & panning
   @state()
   _viewportTransform: ViewportTransformation = {
-    x: this.initialViewportX,
-    y: this.initialViewportY,
+    x: this.initialPOIX,
+    y: this.initialPOIY,
     scale: this.initialViewportScale
   }
 
+  // Variables for drag event
   @state()
   _prePanX: number = 0;
-  
   @state()
   _prePanY: number = 0;
 
+  // Store ref to canvas element to get context
   @query('#canvas', true)
   $canvas!: HTMLCanvasElement;
 
+  // CSS styling
   static styles: CSSResultGroup = css`
     :host {
       line-height: 0;
@@ -44,14 +46,16 @@ export class MapViewport extends LitElement {
 
   protected constructor() {
     super();
+    // Add event listeners for panning
     this.addEventListener('mousedown', this.onMouseDown);
     this.addEventListener('mouseup', this.onMouseUp);
   }
 
   protected firstUpdated(_changedProperties: PropertyValues): void {
+    // Set initial viewport to have POI in the center
     this._viewportTransform = {
-      x: (this.width / 2) - this.initialViewportX,
-      y: (this.height / 2) - this.initialViewportY,
+      x: (this.width / 2) - this.initialPOIX,
+      y: (this.height / 2) - this.initialPOIY,
       scale: this.initialViewportScale
     };
   }
@@ -94,6 +98,7 @@ export class MapViewport extends LitElement {
     // draw test rects
     this.drawRect(0, 0, 50, 50, 'red');
     this.drawRect(100, 100, 100, 50, 'blue');
+    this.drawRect(95, 70, 10, 10, 'black')
   }
 
   protected drawRect(x: number, y:number, w:number, h: number, color: string): void {
@@ -113,6 +118,7 @@ export class MapViewport extends LitElement {
   }
 
   protected onMouseUp(_ev: MouseEvent): void {
+    // Remove listener again
     this.removeEventListener('mousemove', this.onMouseMove);
   }
 

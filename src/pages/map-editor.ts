@@ -48,8 +48,8 @@ export class MapEditor extends LitElement {
       <map-viewport
         width="${this._width}"
         height="${this._height}"
-        initialViewportX="100"
-        initialViewportY="100"
+        initialPOIX="100"
+        initialPOIY="75"
       >
       </map-viewport>
     `
