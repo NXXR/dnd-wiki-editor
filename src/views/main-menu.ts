@@ -2,6 +2,7 @@ import { css, html, LitElement, unsafeCSS, type CSSResultGroup } from "lit";
 import { customElement } from "lit/decorators.js";
 import basicCSS from "../index.css?inline";
 import "../components/nav-bar";
+import baseURL from "../utils/baseURL";
 
 @customElement('main-menu')
 export class MainMenu extends LitElement {
@@ -10,7 +11,7 @@ export class MainMenu extends LitElement {
       <nav-bar
         title="Main Menu"
       ></nav-bar>
-      <h2><a href="/character">Character</a></h2>
+      <h2><a href=${baseURL('/character')}>Character</a></h2>
       <h2>Editor</h2>
     `;
   }
