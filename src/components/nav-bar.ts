@@ -8,7 +8,7 @@ export class NavBar extends LitElement {
   hidden: boolean = false;
   
   @property({type: String})
-  title: string;
+  title: string = "D&D Organizer";
 
   protected render(): HTMLTemplateResult {
     return html`
