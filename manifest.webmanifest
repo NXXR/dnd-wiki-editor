@@ -1,0 +1,11 @@
+{
+  "name": "D&D Organizer",
+  "start_url": "./",
+  "display": "standalone",
+
+  "short_name": "D&D Organizer",
+  "description": "Your Campaign organized",
+  "scope": "./",
+  "theme_color": "#e1661e",
+  "background_color": "#181818"
+}

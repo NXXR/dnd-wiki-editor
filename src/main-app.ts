@@ -1,39 +1,22 @@
-import { Router } from '@vaadin/router';
-import { LitElement, html, type PropertyValues, type TemplateResult } from 'lit'
-import { customElement } from 'lit/decorators.js'
+import { Router } from "@lit-labs/router";
+import { html, LitElement, type HTMLTemplateResult } from "lit";
+import { customElement } from "lit/decorators.js";
 
-// import pages for routing
-import './pages/landing-page'
-import './pages/map-editor'
+// import Routes
+import "./views/main-menu";
+import "./views/character-view";
 
-/**
- * The main app, setting up the routing.
- */
 @customElement('main-app')
 export class MainApp extends LitElement {
-  
-  protected firstUpdated(_changedProperties: PropertyValues): void {
-    super.firstUpdated(_changedProperties);
+  private _routes = new Router(this, [
+    {name: 'menu', path: '/', render: () => html`<main-menu></main-menu>`},
+    {name: 'character', path: '/character', render: () => html`<character-view></character-view>`},
+  ]);
 
-    const router = new Router(this.shadowRoot?.querySelector('#outlet'));
-    
-    /* Routes go in here */
-    router.setRoutes([
-      /* Root */
-      {path: '/', component: 'landing-page'},
-      /* Map Editor */
-      {path: '/editor', component: 'map-editor'},
-      /* Fallback redirect anything else back to root */
-      {path: '(.*)', redirect: '/'}
-    ])
-  }
-
-  protected render(): TemplateResult {
+  protected render(): HTMLTemplateResult {
     return html`
-      <main>
-        <div id='outlet'></div>
-      </main>
-    `
+    ${this._routes.outlet()}
+    `;
   }
 }
 
