@@ -1,17 +1,22 @@
 import { html, LitElement, type HTMLTemplateResult } from "lit";
-import { customElement } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
+import icon from "../assets/Icons/Viewer.svg?url";
+import "../components/nav-bar"
+import baseURL from "../utils/baseURL";
+
 
 @customElement('character-view')
 export class CharacterView extends LitElement {
+  @property({type: String})
+  name: string
+
   protected render(): HTMLTemplateResult {
     return html`
-    <h1>Hello Zyl</h1>
+    <nav-bar
+        iconURL=${icon}
+        title=${this.name}
+    >
+    </nav-bar>
     `;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'character-view': CharacterView
-  }
+  };
 }
